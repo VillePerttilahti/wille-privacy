@@ -63,7 +63,18 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
     Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
   }
 
-  /* --- 3. Kielivalinnan muistaminen -------------------------------------- */
+  /* --- 3. Heron video ---------------------------------------------------- */
+  /* Toisto käynnistetään koodista, ei autoplay-attribuutilla. Näin
+     liikkeen vähennys voidaan oikeasti kunnioittaa: silloin video jää
+     paikalleen ja kävijä näkee pelkän poster-kuvan. */
+
+  var video = document.querySelector(".hero-video");
+  if (video && !reduced) {
+    var toisto = video.play();
+    if (toisto && toisto.catch) { toisto.catch(function () {}); }
+  }
+
+  /* --- 4. Kielivalinnan muistaminen -------------------------------------- */
   /* Kun kävijä klikkaa FI tai EN, valinta talletetaan ja juurisivun
      automaattinen kieliohjaus noudattaa sitä jatkossa. Kirjoitus on
      synkroninen, joten se ehtii tallentua ennen siirtymää. */
@@ -78,7 +89,7 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
     }
   );
 
-  /* --- 3. Vuosiluku alatunnisteeseen ------------------------------------ */
+  /* --- 5. Vuosiluku alatunnisteeseen ------------------------------------ */
 
   var year = document.querySelector("[data-year]");
   if (year) year.textContent = new Date().getFullYear();

@@ -909,3 +909,28 @@ p { margin: 0; }
 @media (max-width: 640px) {
   .research-card { padding: 34px 22px 30px; }
 }
+
+/* --- 22. Heron video ------------------------------------------------------ */
+/*
+   Läpinäkyvä video 3D-puhelimesta, joka kääntyy paljastaen etusivun.
+
+   KAKSI LÄHDETTÄ ON PAKKO OLLA. Alfakanavallista videota ei ole yhtenäisesti
+   tuettu: WebM/VP9 toimii Chromessa, Firefoxissa ja Edgessä, mutta Safari ja
+   iOS vaativat HEVC-koodatun MP4:n. Selain valitsee ensimmäisen jonka osaa.
+
+   Jos kumpikaan ei toistu, poster-kuva jää näkyviin. Se on videon viimeinen
+   ruutu, eli sama näkymä johon animaatio päättyy — mikään ei jää tyhjäksi.
+
+   Videossa on jo oma puhelinkehys, joten .shot-kehyksen liukuvärireunusta
+   ei käytetä. Sen tilalla on sama kultahehku, joka tulee .glow-wrapista.
+*/
+
+.hero-figure--video { width: min(500px, 92vw); }
+
+.hero-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Estää poster-kuvan välähdyksen ennen ensimmäistä ruutua. */
+  background: transparent;
+}
