@@ -936,6 +936,37 @@ p { margin: 0; }
   width: min(460px, 88vw);
 }
 
+/* Videolla ei ole .shot-kehystä, joten siltä puuttui kehyksen tiivis
+   kultahalo — vain leveä taustahehku jäi. Tässä se korvataan toisella,
+   kapeammalla kerroksella, jotta valo on yhtä voimakas kuin lohkojen
+   kuvakaappauksilla. */
+.hero-figure--anim::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  /* Puhelimen kokoinen pyöristetty suorakulmio, ei pallo. Hehku seuraa
+     laitteen ääriviivaa samalla tavalla kuin .shot-kehyksen box-shadow
+     lohkojen kuvakaappauksissa — pallomainen hehku jätti puhelimen reunan
+     ja valon väliin tumman raon. */
+  width: 60%;
+  height: 68%;
+  transform: translate(-50%, -50%);
+  border-radius: 14%;
+  box-shadow:
+    0 0 70px  -6px  rgba(255, 190, 35, .75),
+    0 0 130px -18px rgba(255, 170, 25, .85),
+    0 0 200px -40px rgba(255, 160, 20, .70);
+  pointer-events: none;
+}
+
+/* Taustahehku hieman voimakkaammaksi samasta syystä. */
+.hero-figure--anim.glow-wrap::before {
+  background: radial-gradient(closest-side,
+              rgba(255, 195, 40, .62), rgba(255, 165, 20, .30) 55%, transparent 78%);
+}
+
 .hero-canvas,
 .hero-fallback {
   display: block;
