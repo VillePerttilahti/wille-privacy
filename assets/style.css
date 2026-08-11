@@ -345,16 +345,21 @@ p { margin: 0; }
   pointer-events: none;
 }
 
-.hero > .wrap { position: relative; }
+/* Heron palsta on leveämpi kuin muun sivun. Otsikko ei ole leipätekstiä
+   eikä sitä sido sama luettavuusleveys — ja pitkä otsikko mahtuu näin
+   kahdelle riville kolmen sijaan. Muut heron elementit rajaavat itse
+   oman leveytensä, joten tämä koskee käytännössä vain otsikkoa. */
+.hero > .wrap { position: relative; max-width: 1280px; }
 
 .hero h1 {
   /* Mitoitettu pitkälle otsikolle: kaksi riviä työpöydällä, kolme
      kapealla näytöllä. Jos otsikko lyhenee, maksimikokoa voi nostaa
      takaisin — 4.7rem oli aiemmin sopiva neljän sanan otsikolle. */
-  font-size: clamp(1.45rem, 4.8vw, 3.1rem);
+  font-size: clamp(1.45rem, 4.7vw, 3.75rem);
   line-height: 1.0;
   margin: 22px auto 0;
-  max-width: 30ch;
+  /* EI text-wrap: balance. Se pilkkoisi kultaisen rivin kahtia tasatakseen
+     rivien pituudet, vaikka rivi mahtuisi kokonaan yhdelle riville. */
 }
 
 .hero .lead {
@@ -460,6 +465,7 @@ p { margin: 0; }
 .feature h2 {
   font-size: clamp(1.85rem, 3.5vw, 2.55rem);
   line-height: 1.06;
+  text-wrap: balance;
 }
 
 .feature-text p {
