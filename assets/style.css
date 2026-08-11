@@ -320,7 +320,10 @@ p { margin: 0; }
 
 .hero {
   position: relative;
-  padding: 84px 0 0;
+  /* Pohjapehmuste EI ole koristetta: overflow:hidden rajaa heron ilmakehän,
+     ja ilman tätä tilaa se leikkaisi myös kallistetun puhelimen kulmat ja
+     kultahehkun suoraan viivaan. Varjot ulottuvat noin 105 px alaspäin. */
+  padding: 84px 0 116px;
   text-align: center;
   overflow: hidden;
 }
@@ -639,7 +642,6 @@ p { margin: 0; }
 .factbar {
   border-block: 1px solid var(--border);
   background: rgba(255, 255, 255, .02);
-  margin-top: 72px;
 }
 
 .factbar .wrap {
@@ -685,7 +687,7 @@ p { margin: 0; }
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
-  .hero { padding-top: 56px; }
+  .hero { padding-top: 56px; padding-bottom: 116px; }
   .hero-figure { margin-top: 44px; }
   .store-row { flex-direction: column; align-items: stretch; }
   .store-row .btn { width: 100%; }
