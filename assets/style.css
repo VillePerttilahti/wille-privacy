@@ -348,10 +348,13 @@ p { margin: 0; }
 .hero > .wrap { position: relative; }
 
 .hero h1 {
-  font-size: clamp(2.15rem, 7.4vw, 4.7rem);
-  line-height: .98;
+  /* Mitoitettu pitkälle otsikolle: kaksi riviä työpöydällä, kolme
+     kapealla näytöllä. Jos otsikko lyhenee, maksimikokoa voi nostaa
+     takaisin — 4.7rem oli aiemmin sopiva neljän sanan otsikolle. */
+  font-size: clamp(1.45rem, 4.8vw, 3.1rem);
+  line-height: 1.0;
   margin: 22px auto 0;
-  max-width: 15ch;
+  max-width: 30ch;
 }
 
 .hero .lead {
@@ -837,4 +840,52 @@ p { margin: 0; }
   .legal th { background: #eee; }
   .legal td { border-top: 1px solid #ccc; }
   .legal tbody tr:nth-child(odd) td { background: #fff; }
+}
+
+/* --- 21. Tutkimuslohko --------------------------------------------------- */
+/* Tarkoituksella hillitty: ei neonreunusta eikä hehkua. Hinta- ja loppukortti
+   ovat jo reunustettuja, ja kolmas hohtava kortti söisi ne kaikki. Vaimeus on
+   myös sisällöllisesti oikein — tämä on lähdeviite, ei myyntipuhe. */
+
+.research { padding: 0 0 96px; }
+
+.research-card {
+  max-width: 740px;
+  margin-inline: auto;
+  text-align: center;
+  padding: 44px 32px 38px;
+  border-radius: 26px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.research-card .block-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 14px;
+}
+
+.research-card h2 {
+  font-size: clamp(1.4rem, 3vw, 1.95rem);
+  line-height: 1.14;
+  max-width: 27ch;
+  margin-inline: auto;
+}
+
+.research-card p { color: var(--text-2); margin-top: 18px; font-size: 1rem; }
+
+.research-card .citation {
+  margin-top: 26px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+.research-card .citation a { color: var(--lilac); }
+
+@media (max-width: 640px) {
+  .research-card { padding: 34px 22px 30px; }
 }
