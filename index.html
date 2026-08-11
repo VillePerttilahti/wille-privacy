@@ -2,34 +2,321 @@
 <html lang="fi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Will·e — oppimisappi peruskoululaisille</title>
-<meta name="description" content="Will·e tekee kokeisiin opiskelusta pelin. Tekoäly luo koealueestasi harjoituskysymyksiä. Turvallinen, mainokseton oppimisappi peruskoululaisille.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Will·e – koealueesta peli, jota lapsi haluaa pelata</title>
+<meta name="description" content="Will·e tekee koealueen sivuista harjoituskysymyksiä ja kaverihaasteita. Kuvaa kirjan sivut, pelaa, haasta kaveri. Peruskoulun 1.–9. luokille. Ensimmäinen viikko ilmaiseksi.">
+<link rel="canonical" href="https://will-e.app/">
+<link rel="alternate" hreflang="fi" href="https://will-e.app/">
+<link rel="alternate" hreflang="en" href="https://will-e.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://will-e.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Will·e">
+<meta property="og:locale" content="fi_FI">
+<meta property="og:url" content="https://will-e.app/">
+<meta property="og:title" content="Will·e – koealueesta peli, jota lapsi haluaa pelata">
+<meta property="og:description" content="Kuvaa koealue, ja Will·e tekee siitä harjoituskysymyksiä. Pelaa, haasta kaveri, etene avaruudessa.">
+<meta property="og:image" content="https://will-e.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0620">
+
+<link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-<header class="site">
+<div class="starfield" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ====================== YLÄPALKKI ====================== -->
+<header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/">Will<span>·</span>e</a>
-    <h1>Opi pelaamalla — kokeisiin, omaan tahtiin.</h1>
-    <p class="meta">Will·e on suomalainen oppimisappi peruskoululaisille (luokat 1–9). Tekoäly tekee koealueestasi harjoituskysymyksiä, joita voi pelata yksin tai kaverin kanssa. Ei mainoksia, ei seurantaa. Tulossa App Storeen syksyllä 2026.</p>
+    <a class="brand" href="/" aria-label="Will·e – etusivu">
+      <img src="assets/icon.png" alt="">
+      <span class="logo"><span class="word">Will</span><span class="dot">·</span><span class="word">e</span></span>
+    </a>
+
+    <span class="header-spacer"></span>
+
+    <nav class="lang" aria-label="Kieli">
+      <a href="/" aria-current="page" hreflang="fi">FI</a>
+      <a href="/en/" hreflang="en">EN</a>
+    </nav>
+
+    <a class="btn btn-small is-pending" href="#" role="button" aria-disabled="true"
+       data-appstore data-live="Lataa App Storesta">
+      <span class="btn-label">Tulossa App Storeen</span>
+    </a>
   </div>
 </header>
+
 <main>
-  <div class="wrap">
-    <h2>Dokumentit</h2>
-    <nav class="doclinks" aria-label="Dokumentit">
-      <a href="/tietosuoja"><span class="t">Tietosuojaseloste</span><span class="s">Mitä tietoja keräämme ja miksi — myös lapsille selitettynä</span></a>
-      <a href="/kayttoehdot"><span class="t">Käyttöehdot</span><span class="s">Palvelun ehdot, tilaukset ja tekoälysisältöä koskevat huomautukset</span></a>
-      <a href="/privacy"><span class="t">Privacy Policy</span><span class="s">In English</span></a>
-      <a href="/terms"><span class="t">Terms of Service</span><span class="s">In English</span></a>
-    </nav>
-    <h2>Yhteys</h2>
-    <p>Tuki, tietosuojapyynnöt ja ilmoitukset: <a href="mailto:tuki@will-e.app">tuki@will-e.app</a></p>
+
+  <!-- ====================== HERO ====================== -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow-pill reveal">1.–9. luokka · Suomi, ruotsi, englanti</p>
+
+      <h1 class="reveal">Kuvaa koealue.<em>Osaa koe.</em></h1>
+
+      <p class="lead reveal">
+        Will·e tekee kirjan sivuista pelin, jota lapsi haluaa pelata —
+        eikä koeviikko ala enää muistuttamisesta.
+      </p>
+
+      <div class="store-row reveal">
+        <a class="btn is-pending" href="#" role="button" aria-disabled="true"
+           data-appstore data-live="Lataa App Storesta">
+          <span class="btn-label">Tulossa App Storeen</span>
+        </a>
+      </div>
+
+      <p class="store-note reveal" data-pending-note>
+        Julkaisu elokuussa 2026. Android-versio on tekeillä.
+      </p>
+
+      <div class="hero-figure glow-wrap reveal">
+        <span class="shot">
+          <img src="assets/shots/hero.png" width="645" height="1398"
+             alt="Will·e-sovelluksen etusivu iPhonessa">
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FAKTANAUHA ====================== -->
+  <div class="factbar">
+    <div class="wrap">
+      <span><b>7 vuorokautta</b> ilmaiseksi</span>
+      <span><b>Ei</b> mainoksia</span>
+      <span>Ikäraja <b>4+</b></span>
+      <span><b>Kolme</b> kieltä</span>
+    </div>
   </div>
+
+  <!-- ====================== OMINAISUUDET ====================== -->
+  <!-- Pysäkkiviiva kulkee lohkojen välissä: sivu on matka, kuten apin
+       avaruuskarttakin. Piilotetaan kapealla näytöllä. -->
+  <section class="features wrap">
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Kuvaa koealue,<em>kysymykset syntyvät itsestään</em></h2>
+        <p>
+          Ota kuva kirjan sivuista tai tuo PDF, Word-tiedosto tai kuva.
+          Will·e lukee sisällön ja tekee siitä harjoituskysymyksiä
+          muutamassa sekunnissa.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/camera.png" width="645" height="1398"
+             alt="Koealueen kuvaaminen sovelluksessa" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Totta vai tarua,<em>yksi pyyhkäisy kerrallaan</em></h2>
+        <p>
+          Nopea peli, joka ei tunnu läksyltä. Väärä vastaus selitetään heti,
+          jotta virhe ei jää päähän oikean tiedon tilalle.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/swipe.png" width="645" height="1398"
+             alt="Totta vai tarua -pelinäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Haasta kaveri<em>ja katso kumpi voittaa</em></h2>
+        <p>
+          Sama kymmenen kysymyksen sarja molemmille. Kaverin lähettämään
+          haasteeseen voi vastata aina ilmaiseksi, myös ilman tilausta.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/challenge.png" width="645" height="1398"
+             alt="Kaverihaasteen tulosnäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Matka avaruuden halki,<em>etappi kerrallaan</em></h2>
+        <p>
+          Jokainen harjoituskerta vie eteenpäin. Kolikot, arvoasteikko ja
+          voittoputki tekevät kertaamisesta jotain, mitä lapsi haluaa jatkaa
+          huomennakin.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/journey.png" width="645" height="1398"
+             alt="Avaruusmatkan karttanäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Koe ensi viikolla?<em>Etusivu kertoo sen</em></h2>
+        <p>
+          Merkitse koepäivä sovellukseen. Viikkoa ennen etusivu vaihtaa
+          kultareunukseen ja laskee päivät — ilman että kenenkään tarvitsee
+          muistuttaa.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/exam.png" width="645" height="1398"
+             alt="Koelaskuri etusivulla" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Ruutuaika ansaitaan<em>opiskelemalla</em></h2>
+        <p>
+          App Lock pitää valitut sovellukset kiinni, kunnes harjoittelu on
+          tehty. Vanhempi valitsee sovellukset, lapsi avaa ne itse.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/applock.png" width="645" height="1398"
+             alt="App Lock -näkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ====================== VANHEMMILLE ====================== -->
+  <section class="parents">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Lapsi käyttää.<em>Vanhempi voi luottaa.</em></h2>
+        <p>Will·e on tehty peruskouluikäisille, ja se näkyy jokaisessa ratkaisussa.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <h3>Ei mainoksia</h3>
+          <p>Sovelluksessa ei ole mainoksia eikä ulkopuolisia seurantatyökaluja.
+             Tietoja ei myydä eteenpäin.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Vanhemman vahvistus</h3>
+          <p>Kaverit ja keskustelu aukeavat vasta kun vanhempi on vahvistanut
+             asian sähköpostitse. Pelit toimivat heti.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Kuvat eivät jää talteen</h3>
+          <p>Koealueen kuvaa ei tallenneta palvelimelle, ja keskusteluhistoria
+             pysyy vain lapsen laitteessa.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Sääntöjen mukaan</h3>
+          <p>GDPR ja COPPA on huomioitu alusta asti. App Storen ikäraja on 4+.</p>
+        </div>
+      </div>
+
+      <p class="fineprint reveal">
+        Tekoäly voi tehdä virheitä — Will·e on harjoittelun apuväline, ei
+        oppikirjan korvaaja. App Lock hyödyntää iOS:n ruutuaikarajoituksia,
+        eikä sitä ole tarkoitettu ainoaksi lapsilukoksi.
+        Lue <a href="/tietosuoja.html">tietosuojaseloste</a> ja
+        <a href="/kayttoehdot.html">käyttöehdot</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== HINTA ====================== -->
+  <section class="pricing">
+    <div class="wrap">
+      <div class="price-card glow-wrap reveal">
+        <p class="price-label">Will·e Pro</p>
+        <h2>Ensimmäinen viikko ilmaiseksi</h2>
+        <p class="amount">8,99 € / kk</p>
+        <ul>
+          <li>7 vuorokauden ilmainen kokeilu</li>
+          <li>Peru milloin tahansa</li>
+          <li>Kaverin haasteeseen vastaaminen on aina ilmaista</li>
+          <li>Ei mainoksia eikä erillisiä lisäostoja</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== LOPPU-CTA ====================== -->
+  <section class="closing">
+    <div class="wrap">
+      <div class="closing-card glow-wrap reveal">
+        <h2>Ensi kokeeseen<em>voi lukea toisin.</em></h2>
+
+        <div class="store-row">
+          <a class="btn is-pending" href="#" role="button" aria-disabled="true"
+             data-appstore data-live="Lataa App Storesta">
+            <span class="btn-label">Tulossa App Storeen</span>
+          </a>
+        </div>
+
+        <p class="store-note" data-pending-note>
+          Julkaisu elokuussa 2026.
+        </p>
+    
+      </div>
+    </div>
+  </section>
+
 </main>
-<footer class="site">© 2026 Ville Perttilahti · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+
+<!-- ====================== ALATUNNISTE ====================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="logo"><span class="word">Will</span><span class="dot">·</span><span class="word">e</span></span>
+
+    <nav class="footer-links" aria-label="Alatunniste">
+      <a href="mailto:tuki@will-e.app">tuki@will-e.app</a>
+      <a href="/tietosuoja.html">Tietosuoja</a>
+      <a href="/kayttoehdot.html">Käyttöehdot</a>
+      <a href="/en/" hreflang="en">In English</a>
+    </nav>
+
+    <div class="footer-legal">
+      <span>© <span data-year>2026</span> Ville Perttilahti</span>
+      <span>Tehty Suomessa 🧡</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
 </body>
 </html>
