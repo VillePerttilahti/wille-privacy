@@ -130,6 +130,9 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
         if (!kehys.classList.contains("on")) kehys.classList.add("on");
       }
+      /* Video ei toistu silmukkana. Kun se päättyy, piirretään vielä yksi
+         ruutu ja lopetetaan — muuten silmukka pyörisi turhaan taustalla. */
+      if (video.ended) return;
       requestAnimationFrame(piirra);
     }
 
