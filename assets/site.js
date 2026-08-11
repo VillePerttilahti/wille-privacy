@@ -69,7 +69,16 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
 
   (function () {
     var kehys = document.querySelector(".hero-figure--anim");
-    if (!kehys || reduced) return;
+    if (!kehys) return;
+
+    /* Liikkeen vähennys: video on autoplay-attribuutilla, koska iOS ei muuten
+       lataa dataa lainkaan. Toisto perutaan siis tässä, ei jättämällä
+       play()-kutsu tekemättä. */
+    if (reduced) {
+      var v0 = kehys.querySelector(".hero-video");
+      if (v0) { v0.autoplay = false; v0.pause(); }
+      return;
+    }
 
     var kangas = kehys.querySelector(".hero-canvas");
     var video  = kehys.querySelector(".hero-video");
@@ -136,13 +145,21 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
       requestAnimationFrame(piirra);
     }
 
-    video.addEventListener("loadeddata", function () {
+    /* Toisto yritetään heti. iOS ei lataa videodataa ennen kuin toisto on
+       pyydetty, joten loadeddata-tapahtuman odottaminen jumittaisi: data ei
+       lataudu ilman play()-kutsua eikä play() lähde ilman dataa. */
+    function kaynnista() {
       var toisto = video.play();
       if (toisto && toisto.catch) toisto.catch(function () {});
-      requestAnimationFrame(piirra);
-    });
+    }
 
-    if (video.readyState >= 2) video.dispatchEvent(new Event("loadeddata"));
+    kaynnista();
+    video.addEventListener("loadedmetadata", kaynnista);
+    video.addEventListener("canplay", kaynnista);
+
+    /* Piirtosilmukka pyörii heti. Se odottaa itse readyState-tilaa, joten
+       tyhjää ruutua ei piirry — varakuva näkyy siihen asti. */
+    requestAnimationFrame(piirra);
   })();
 
   /* --- 4. Kielivalinnan muistaminen -------------------------------------- */

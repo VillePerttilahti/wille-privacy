@@ -948,11 +948,20 @@ p { margin: 0; }
 .hero-figure--anim.on .hero-canvas { display: block; }
 .hero-figure--anim.on .hero-fallback { display: none; }
 
-/* Videoelementti on vain datan lähde, sitä ei koskaan näytetä. */
+/* Videoelementti on vain datan lähde WebGL:lle, sitä ei näytetä.
+
+   MUTTA: sitä ei saa piilottaa display:none:lla, 1×1 pikseliin eikä
+   opacity: 0:aan. iOS Safari kieltäytyy toistamasta videota jota se pitää
+   näkymättömänä, jolloin kangas jää tyhjäksi ja tilalle tulee varakuva.
+   Siksi elementti on oikean kokoinen ja lähes läpinäkyvä, kankaan takana. */
 .hero-video {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.001;
+  z-index: -1;
   pointer-events: none;
 }
+
+.hero-canvas { position: relative; z-index: 1; }
