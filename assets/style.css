@@ -400,7 +400,8 @@ p { margin: 0; }
 .hero h1 em,
 .feature h2 em,
 .section-head h2 em,
-.closing-card h2 em {
+.closing-card h2 em,
+.notfound h1 em {
   font-style: normal;
   display: block;
   color: var(--neon);
@@ -859,7 +860,8 @@ p { margin: 0; }
   background: var(--surface);
 }
 
-.research-card .block-label {
+.research-card .block-label,
+.notfound .block-label {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .16em;

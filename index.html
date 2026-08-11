@@ -4,6 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script>
+/* Kieliohjaus. Ajetaan <head>:ssä ennen renderöintiä, jotta suomenkielinen
+   sivu ei välähdä englanninkieliselle kävijälle.
+
+   Järjestys on tarkoituksellinen — käyttäjän oma valinta voittaa aina:
+     1. ?lang= osoitteessa  -> ei ohjata (testaus, jaettavat linkit)
+     2. aiempi FI/EN-valinta -> noudatetaan sitä
+     3. ei valintaa          -> katsotaan selaimen kieli
+   Tämä skripti on vain suomenkielisellä juurisivulla. /en/ ei ohjaa
+   koskaan mihinkään, joten silmukkaa ei voi syntyä. */
+(function () {
+  try {
+    if (location.search.indexOf("lang=") !== -1) return;
+    var valinta = null;
+    try { valinta = localStorage.getItem("wille-kieli"); } catch (e) {}
+    if (valinta === "fi") return;
+    if (valinta === "en") { location.replace("/en/"); return; }
+    var kieli = (navigator.language || "").toLowerCase();
+    if (kieli.indexOf("fi") !== 0) location.replace("/en/");
+  } catch (e) {}
+})();
+</script>
+
+
 <title>Will·e – koealueesta peli, jota lapsi haluaa pelata</title>
 <meta name="description" content="Will·e tekee koealueesta harjoituskysymyksiä ja kaverihaasteita. Kuvaa, pelaa, haasta kaveri. Peruskoulun 1.–9. luokille. Ensimmäinen viikko ilmaiseksi.">
 <link rel="canonical" href="https://will-e.app/">
@@ -27,7 +51,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="stylesheet" href="assets/style.css?v=6">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Will\u00b7e",
+  "url": "https://will-e.app/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "iOS",
+  "inLanguage": ["fi", "en", "sv"],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Ville Perttilahti"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "12.99",
+    "priceCurrency": "EUR",
+    "description": "Will\u00b7e Pro, kuukausitilaus. Ensimm\u00e4inen viikko ilmaiseksi."
+  }
+}
+</script>
 </head>
 
 <body>
@@ -81,7 +130,7 @@
 
       <div class="hero-figure glow-wrap reveal">
         <span class="shot">
-          <img src="assets/shots/hero.png" width="645" height="1398"
+          <img src="assets/shots/fi/hero.png" width="645" height="1398"
              alt="Will·e-sovelluksen etusivu iPhonessa">
         </span>
       </div>
@@ -114,7 +163,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/camera.png" width="645" height="1398"
+          <img src="assets/shots/fi/camera.png" width="645" height="1398"
              alt="Koealueen kuvaaminen sovelluksessa" loading="lazy">
         </span>
       </div>
@@ -131,7 +180,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/swipe.png" width="645" height="1398"
+          <img src="assets/shots/fi/swipe.png" width="645" height="1398"
              alt="Totta vai tarua -pelinäkymä" loading="lazy">
         </span>
       </div>
@@ -149,7 +198,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/challenge.png" width="645" height="1398"
+          <img src="assets/shots/fi/challenge.png" width="645" height="1398"
              alt="Kaverihaasteen tulosnäkymä" loading="lazy">
         </span>
       </div>
@@ -166,7 +215,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/journey.png" width="645" height="1398"
+          <img src="assets/shots/fi/journey.png" width="645" height="1398"
              alt="Avaruusmatkan karttanäkymä" loading="lazy">
         </span>
       </div>
@@ -183,7 +232,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/chat.png" width="645" height="1398"
+          <img src="assets/shots/fi/chat.png" width="645" height="1398"
              alt="Will·e-chat sovelluksessa" loading="lazy">
         </span>
       </div>
@@ -200,7 +249,7 @@
       </div>
       <div class="feature-shot glow-wrap">
         <span class="shot">
-          <img src="assets/shots/applock.png" width="645" height="1398"
+          <img src="assets/shots/fi/applock.png" width="645" height="1398"
              alt="App Lock -näkymä" loading="lazy">
         </span>
       </div>
@@ -331,6 +380,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=5"></script>
+<script src="assets/site.js?v=6"></script>
 </body>
 </html>

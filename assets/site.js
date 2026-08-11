@@ -63,6 +63,21 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
     Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
   }
 
+  /* --- 3. Kielivalinnan muistaminen -------------------------------------- */
+  /* Kun kävijä klikkaa FI tai EN, valinta talletetaan ja juurisivun
+     automaattinen kieliohjaus noudattaa sitä jatkossa. Kirjoitus on
+     synkroninen, joten se ehtii tallentua ennen siirtymää. */
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".lang a[hreflang]"),
+    function (a) {
+      a.addEventListener("click", function () {
+        try { localStorage.setItem("wille-kieli", a.getAttribute("hreflang")); }
+        catch (e) {}
+      });
+    }
+  );
+
   /* --- 3. Vuosiluku alatunnisteeseen ------------------------------------ */
 
   var year = document.querySelector("[data-year]");

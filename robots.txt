@@ -1,0 +1,10 @@
+# Will·e – will-e.app
+#
+# Kaikki sisältö on tarkoitettu löydettäväksi. Mitään ei ole estetty.
+# Sitemap-rivi on tämän tiedoston tärkein: se kertoo hakukoneille mistä
+# sivukartta löytyy, eikä sitä tarvitse ilmoittaa erikseen mihinkään.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://will-e.app/sitemap.xml
