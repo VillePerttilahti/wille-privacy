@@ -910,27 +910,26 @@ p { margin: 0; }
   .research-card { padding: 34px 22px 30px; }
 }
 
-/* --- 22. Heron video ------------------------------------------------------ */
+/* --- 22. Heron animaatio -------------------------------------------------- */
 /*
-   Läpinäkyvä video 3D-puhelimesta, joka kääntyy paljastaen etusivun.
+   3D-puhelin, joka kääntyy paljastaen sovelluksen etusivun. Toteutus on
+   KUVASARJA, ei video, ja siihen on syy: läpinäkyvä video ei toimi
+   yhtenäisesti. WebM/VP9-alfa ei toistu Safarissa, ja HEVC-alfa taas
+   vaatii Applen omat työkalut — ffmpeg hylkää alfakanavan hiljaisesti.
+   WebP-läpinäkyvyys sen sijaan toimii joka selaimessa poikkeuksetta.
 
-   KAKSI LÄHDETTÄ ON PAKKO OLLA. Alfakanavallista videota ei ole yhtenäisesti
-   tuettu: WebM/VP9 toimii Chromessa, Firefoxissa ja Edgessä, mutta Safari ja
-   iOS vaativat HEVC-koodatun MP4:n. Selain valitsee ensimmäisen jonka osaa.
+   38 ruutua, 396 kB. Näytteistys on epätasainen: käännöksen aikana
+   15 ruutua/s, lopun hitaassa asettumisessa 8 — silmä ei erota eroa,
+   mutta tiedostokoko puolittuu.
 
-   Jos kumpikaan ei toistu, poster-kuva jää näkyviin. Se on videon viimeinen
-   ruutu, eli sama näkymä johon animaatio päättyy — mikään ei jää tyhjäksi.
-
-   Videossa on jo oma puhelinkehys, joten .shot-kehyksen liukuvärireunusta
-   ei käytetä. Sen tilalla on sama kultahehku, joka tulee .glow-wrapista.
+   HTML:ssä oleva kuva on VIIMEINEN ruutu. Jos JavaScript ei aja, kävijä
+   näkee valmiin näkymän eikä tyhjää.
 */
 
-.hero-figure--video { width: min(500px, 92vw); }
+.hero-figure--anim { width: min(460px, 88vw); }
 
-.hero-video {
+.hero-frame {
   display: block;
   width: 100%;
   height: auto;
-  /* Estää poster-kuvan välähdyksen ennen ensimmäistä ruutua. */
-  background: transparent;
 }

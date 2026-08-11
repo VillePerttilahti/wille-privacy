@@ -51,7 +51,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=9">
+<link rel="stylesheet" href="assets/style.css?v=10">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -123,14 +123,10 @@
         </a>
       </div>
 
-      <div class="hero-figure hero-figure--video glow-wrap reveal">
-        <video class="hero-video" muted playsinline preload="auto"
-               poster="assets/video/hero-poster.webp"
-               aria-label="Will·e-sovelluksen etusivu iPhonessa">
-          <source src="assets/video/hero.webm" type="video/webm">
-          <source src="assets/video/hero.mp4" type="video/mp4; codecs=hvc1">
-          <img src="assets/video/hero-poster.webp" alt="Will·e-sovelluksen etusivu iPhonessa">
-        </video>
+      <div class="hero-figure hero-figure--anim glow-wrap reveal"
+           data-hero-anim data-frames="38" data-path="assets/hero/">
+        <img class="hero-frame" src="assets/hero/r037.webp"
+             width="460" height="912" alt="Will·e-sovelluksen etusivu iPhonessa">
       </div>
     </div>
   </section>
@@ -350,6 +346,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=9"></script>
+<script src="assets/site.js?v=10"></script>
 </body>
 </html>

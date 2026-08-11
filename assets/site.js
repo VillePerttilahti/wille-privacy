@@ -63,15 +63,54 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
     Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
   }
 
-  /* --- 3. Heron video ---------------------------------------------------- */
-  /* Toisto käynnistetään koodista, ei autoplay-attribuutilla. Näin
-     liikkeen vähennys voidaan oikeasti kunnioittaa: silloin video jää
-     paikalleen ja kävijä näkee pelkän poster-kuvan. */
+  /* --- 3. Heron animaatio ------------------------------------------------ */
+  /* Kuvasarja, ei video: läpinäkyvä video ei toimi yhtenäisesti selaimissa.
+     Ruudut esiladataan ensin, jotta animaatio ei nyi ensimmäisellä
+     kierroksella. Liikkeen vähennys pysäyttää sen kokonaan. */
 
-  var video = document.querySelector(".hero-video");
-  if (video && !reduced) {
-    var toisto = video.play();
-    if (toisto && toisto.catch) { toisto.catch(function () {}); }
+  var kehys = document.querySelector("[data-hero-anim]");
+
+  if (kehys && !reduced) {
+    var kuva  = kehys.querySelector(".hero-frame");
+    var maara = parseInt(kehys.getAttribute("data-frames"), 10);
+    var polku = kehys.getAttribute("data-path");
+    var ladatut = [];
+    var valmiina = 0;
+
+    for (var i = 0; i < maara; i++) {
+      (function (n) {
+        var im = new Image();
+        im.onload = function () {
+          valmiina++;
+          if (valmiina === maara) kaynnista();
+        };
+        im.src = polku + "r" + ("00" + n).slice(-3) + ".webp";
+        ladatut.push(im);
+      })(i);
+    }
+
+    var kaynnistetty = false;
+
+    function kaynnista() {
+      if (kaynnistetty) return;
+      kaynnistetty = true;
+
+      var ruutu = 0;
+      var alku = null;
+      var KESTO = 4000;   /* sama kuin alkuperäisen videon pituus */
+
+      function askel(aika) {
+        if (alku === null) alku = aika;
+        var osuus = (aika - alku) / KESTO;
+        if (osuus >= 1) { kuva.src = ladatut[maara - 1].src; return; }
+        var uusi = Math.floor(osuus * maara);
+        if (uusi !== ruutu) { ruutu = uusi; kuva.src = ladatut[ruutu].src; }
+        requestAnimationFrame(askel);
+      }
+
+      kuva.src = ladatut[0].src;
+      requestAnimationFrame(askel);
+    }
   }
 
   /* --- 4. Kielivalinnan muistaminen -------------------------------------- */
