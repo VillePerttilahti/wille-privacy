@@ -912,24 +912,47 @@ p { margin: 0; }
 
 /* --- 22. Heron animaatio -------------------------------------------------- */
 /*
-   3D-puhelin, joka kääntyy paljastaen sovelluksen etusivun. Toteutus on
-   KUVASARJA, ei video, ja siihen on syy: läpinäkyvä video ei toimi
-   yhtenäisesti. WebM/VP9-alfa ei toistu Safarissa, ja HEVC-alfa taas
-   vaatii Applen omat työkalut — ffmpeg hylkää alfakanavan hiljaisesti.
-   WebP-läpinäkyvyys sen sijaan toimii joka selaimessa poikkeuksetta.
+   3D-puhelin, joka kääntyy paljastaen sovelluksen etusivun.
 
-   38 ruutua, 396 kB. Näytteistys on epätasainen: käännöksen aikana
-   15 ruutua/s, lopun hitaassa asettumisessa 8 — silmä ei erota eroa,
-   mutta tiedostokoko puolittuu.
+   TEKNIIKKA: "stacked alpha video". Video on kaksinkertaisen korkuinen —
+   yläpuolisko on väri, alapuolisko sama kuva läpinäkyvyytenä mustavalkoisena.
+   WebGL yhdistää ne kankaalle.
 
-   HTML:ssä oleva kuva on VIIMEINEN ruutu. Jos JavaScript ei aja, kävijä
-   näkee valmiin näkymän eikä tyhjää.
+   Miksi näin: läpinäkyvää videota ei ole yhtenäisesti tuettu. WebM/VP9-alfa
+   ei toimi Safarissa, ja HEVC-alfa vaatii Applen omat työkalut. Kun alfa
+   hoidetaan itse, riittää tavallinen H.264 — se toistuu joka selaimessa,
+   ja tiedosto on pienempi kuin kummassakaan natiivissa vaihtoehdossa.
+
+   Video on 912 px leveä eli kaksinkertainen näyttökokoon nähden, joten se
+   on terävä myös retinanäytöllä.
+
+   Jos WebGL ei ole käytettävissä tai liike on vähennetty, kangas piilotetaan
+   ja tilalla näkyy .hero-fallback — videon viimeinen ruutu läpinäkyvänä
+   WebP-kuvana. Mikään ei jää tyhjäksi.
 */
 
-.hero-figure--anim { width: min(460px, 88vw); }
+.hero-figure--anim {
+  position: relative;
+  width: min(460px, 88vw);
+}
 
-.hero-frame {
+.hero-canvas,
+.hero-fallback {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Kangas piilossa kunnes WebGL on varmasti käynnissä. */
+.hero-canvas { display: none; }
+.hero-figure--anim.on .hero-canvas { display: block; }
+.hero-figure--anim.on .hero-fallback { display: none; }
+
+/* Videoelementti on vain datan lähde, sitä ei koskaan näytetä. */
+.hero-video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }

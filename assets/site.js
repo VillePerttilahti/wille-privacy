@@ -64,54 +64,83 @@ var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
   }
 
   /* --- 3. Heron animaatio ------------------------------------------------ */
-  /* Kuvasarja, ei video: läpinäkyvä video ei toimi yhtenäisesti selaimissa.
-     Ruudut esiladataan ensin, jotta animaatio ei nyi ensimmäisellä
-     kierroksella. Liikkeen vähennys pysäyttää sen kokonaan. */
+  /* Pinottu alfavideo: yläpuolisko väri, alapuolisko läpinäkyvyys.
+     WebGL yhdistää ne kankaalle. Ks. style.css kohta 22. */
 
-  var kehys = document.querySelector("[data-hero-anim]");
+  (function () {
+    var kehys = document.querySelector(".hero-figure--anim");
+    if (!kehys || reduced) return;
 
-  if (kehys && !reduced) {
-    var kuva  = kehys.querySelector(".hero-frame");
-    var maara = parseInt(kehys.getAttribute("data-frames"), 10);
-    var polku = kehys.getAttribute("data-path");
-    var ladatut = [];
-    var valmiina = 0;
+    var kangas = kehys.querySelector(".hero-canvas");
+    var video  = kehys.querySelector(".hero-video");
+    if (!kangas || !video) return;
 
-    for (var i = 0; i < maara; i++) {
-      (function (n) {
-        var im = new Image();
-        im.onload = function () {
-          valmiina++;
-          if (valmiina === maara) kaynnista();
-        };
-        im.src = polku + "r" + ("00" + n).slice(-3) + ".webp";
-        ladatut.push(im);
-      })(i);
+    var gl = kangas.getContext("webgl", { premultipliedAlpha: false, alpha: true });
+    if (!gl) return;   /* varakuva jää näkyviin */
+
+    function kaanna(tyyppi, lahde) {
+      var s = gl.createShader(tyyppi);
+      gl.shaderSource(s, lahde);
+      gl.compileShader(s);
+      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
     }
 
-    var kaynnistetty = false;
+    var vs = kaanna(gl.VERTEX_SHADER,
+      "attribute vec2 p;varying vec2 t;" +
+      "void main(){t=vec2((p.x+1.0)*0.5,(1.0-p.y)*0.5);" +
+      "gl_Position=vec4(p,0.0,1.0);}");
 
-    function kaynnista() {
-      if (kaynnistetty) return;
-      kaynnistetty = true;
+    /* Yläpuolisko = väri, alapuolisko = alfa kirkkautena. */
+    var fs = kaanna(gl.FRAGMENT_SHADER,
+      "precision mediump float;uniform sampler2D u;varying vec2 t;" +
+      "void main(){vec4 c=texture2D(u,vec2(t.x,t.y*0.5));" +
+      "float a=texture2D(u,vec2(t.x,0.5+t.y*0.5)).r;" +
+      "gl_FragColor=vec4(c.rgb,a);}");
 
-      var ruutu = 0;
-      var alku = null;
-      var KESTO = 4000;   /* sama kuin alkuperäisen videon pituus */
+    if (!vs || !fs) return;
 
-      function askel(aika) {
-        if (alku === null) alku = aika;
-        var osuus = (aika - alku) / KESTO;
-        if (osuus >= 1) { kuva.src = ladatut[maara - 1].src; return; }
-        var uusi = Math.floor(osuus * maara);
-        if (uusi !== ruutu) { ruutu = uusi; kuva.src = ladatut[ruutu].src; }
-        requestAnimationFrame(askel);
+    var ohjelma = gl.createProgram();
+    gl.attachShader(ohjelma, vs);
+    gl.attachShader(ohjelma, fs);
+    gl.linkProgram(ohjelma);
+    if (!gl.getProgramParameter(ohjelma, gl.LINK_STATUS)) return;
+    gl.useProgram(ohjelma);
+
+    var puskuri = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, puskuri);
+    gl.bufferData(gl.ARRAY_BUFFER,
+      new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    var sijainti = gl.getAttribLocation(ohjelma, "p");
+    gl.enableVertexAttribArray(sijainti);
+    gl.vertexAttribPointer(sijainti, 2, gl.FLOAT, false, 0, 0);
+
+    var tekstuuri = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tekstuuri);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    gl.clearColor(0, 0, 0, 0);
+
+    function piirra() {
+      if (video.readyState >= 2) {
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        if (!kehys.classList.contains("on")) kehys.classList.add("on");
       }
-
-      kuva.src = ladatut[0].src;
-      requestAnimationFrame(askel);
+      requestAnimationFrame(piirra);
     }
-  }
+
+    video.addEventListener("loadeddata", function () {
+      var toisto = video.play();
+      if (toisto && toisto.catch) toisto.catch(function () {});
+      requestAnimationFrame(piirra);
+    });
+
+    if (video.readyState >= 2) video.dispatchEvent(new Event("loadeddata"));
+  })();
 
   /* --- 4. Kielivalinnan muistaminen -------------------------------------- */
   /* Kun kävijä klikkaa FI tai EN, valinta talletetaan ja juurisivun
