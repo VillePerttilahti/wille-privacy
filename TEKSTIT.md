@@ -22,7 +22,7 @@ itsestään kun `assets/site.js`:n `APP_STORE_URL` täytetään.
 |---|---|---|
 | nappi | Tulossa App Storeen | Coming to the App Store |
 | teksti | 1.–9. luokka · Suomi, ruotsi, englanti | Ages 7–16 · Finnish, Swedish, English |
-| otsikko | Kuvaa koealue. ⏎ Osaa koe. | Snap the pages. ⏎ Ace the test. |
+| otsikko | Opi jopa 2x nopeammin ⏎ Johtavan tekoälyopettajan kanssa. | Snap the pages. ⏎ Ace the test. |
 | teksti | Will·e muuttaa pelaamisen opiskeluksi ja opiskelun hauskaksi pelaamiseksi | Will·e turns schoolbook pages into a game your child actually wants to play — so test week no longer starts with a reminder. |
 | nappi | Tulossa App Storeen | Coming to the App Store |
 | teksti | Julkaisu syksyllä 2026. | Launching August 2026. |
