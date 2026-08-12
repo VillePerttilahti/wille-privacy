@@ -358,7 +358,7 @@ p { margin: 0; }
   /* Mitoitettu pitkälle otsikolle: kaksi riviä työpöydällä, kolme
      kapealla näytöllä. Jos otsikko lyhenee, maksimikokoa voi nostaa
      takaisin — 4.7rem oli aiemmin sopiva neljän sanan otsikolle. */
-  font-size: clamp(1.45rem, 4.7vw, 3.75rem);
+  font-size: clamp(1.5rem, 5.6vw, 4.75rem);
   line-height: 1.0;
   margin: 22px auto 0;
   /* EI text-wrap: balance. Se pilkkoisi kultaisen rivin kahtia tasatakseen
@@ -404,6 +404,11 @@ p { margin: 0; }
 /* --- 9. Neonrivi otsikoissa --------------------------------------------- */
 /* Otsikon toinen rivi on kulta ja hohtaa. Tämä on sivun ainoa hohtava
    tekstityyli — jos sitä käyttää muualla, se lakkaa merkitsemästä mitään. */
+
+/* Heron kultainen rivi on 84 % valkoisesta: väite johtaa, tarkennus tukee.
+   Se on myös pidempi teksti, joten pienempi koko pitää sen yhdellä rivillä
+   silloinkin kun ensimmäinen rivi kasvaa. */
+.hero h1 em { font-size: .84em; }
 
 .hero h1 em,
 .feature h2 em,
