@@ -8,7 +8,10 @@
    └────────────────────────────────────────────────────────────────────┘
    ========================================================================== */
 
-var APP_STORE_URL = "";   // esim. "https://apps.apple.com/app/id0000000000"
+var APP_STORE_URL = "https://apps.apple.com/app/id6776587160";
+/* Maakoodi (/fi/) jätetty pois tarkoituksella: Apple ohjaa kävijän
+   automaattisesti hänen oman maansa App Storeen. Maakoodilla
+   englanninkielisen sivun kävijä päätyisi Suomen kauppaan. */
 
 (function () {
   "use strict";

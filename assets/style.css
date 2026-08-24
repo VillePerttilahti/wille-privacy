@@ -257,7 +257,7 @@ p { margin: 0; }
 
 .btn.is-pending:hover { transform: none; }
 
-.btn-small { font-size: 15px; padding: 9px 18px; }
+.btn-small { font-size: 15px; padding: 9px 18px; white-space: nowrap; }
 
 .store-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
@@ -665,9 +665,19 @@ p { margin: 0; }
     font-size: clamp(14px, 4.2vw, 18px);
     padding-inline: clamp(18px, 6vw, 30px);
   }
-  .site-header .btn { display: none; }
+  /* Yläpalkin nappi näkyy myös kapealla näytöllä: se on oikea latauslinkki
+     ja yläpalkki on kiinteä, joten se kulkee mukana vieritettäessä. */
+  .site-header .btn { font-size: 13px; padding: 8px 14px; }
+  .site-header .wrap { gap: 10px; }
+  .site-header .lang a { padding: 5px 8px; }
   .footer-links { margin-left: 0; }
   .closing-card { border-radius: 26px; }
+}
+
+/* Hyvin kapealla näytöllä (alle 360 px) logo, kielivalinta ja nappi eivät
+   mahdu rinnakkain. Nappi piiloon — heron ja sivun lopun napit riittävät. */
+@media (max-width: 359px) {
+  .site-header .btn { display: none; }
 }
 
 /* --- 18. Vähennetty liike ------------------------------------------------ */
