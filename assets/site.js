@@ -148,17 +148,48 @@ var APP_STORE_URL = "https://apps.apple.com/app/id6776587160";
       requestAnimationFrame(piirra);
     }
 
-    /* Toisto yritetään heti. iOS ei lataa videodataa ennen kuin toisto on
-       pyydetty, joten loadeddata-tapahtuman odottaminen jumittaisi: data ei
-       lataudu ilman play()-kutsua eikä play() lähde ilman dataa. */
+    /* Toisto alkaa vasta kun animaatio on näkyvissä.
+
+       Ilman tätä työpöydällä kävisi näin: sivu aukeaa, video on suurimmaksi
+       osaksi taitteen alapuolella ja pyörähtää siellä pimennossa. Kun kävijä
+       vihdoin vierittää alas, käännös on jo ohi eikä hän näe sitä lainkaan.
+
+       Toisto pyydetään silti heti, koska iOS ei lataa videodataa ennen
+       play()-kutsua — data ei lataudu ilman kutsua eikä kutsu onnistu ilman
+       dataa. Ratkaisu: pyydetään toisto, ja jos animaatio ei vielä näy,
+       pysäytetään se välittömästi ensimmäiseen ruutuun. */
+
+    var saaSoittaa = false;
+
     function kaynnista() {
       var toisto = video.play();
       if (toisto && toisto.catch) toisto.catch(function () {});
     }
 
+    video.addEventListener("play", function () {
+      if (!saaSoittaa) { video.pause(); video.currentTime = 0; }
+    });
+
     kaynnista();
     video.addEventListener("loadedmetadata", kaynnista);
     video.addEventListener("canplay", kaynnista);
+
+    function paastaKayntiin() {
+      if (saaSoittaa) return;
+      saaSoittaa = true;
+      kaynnista();
+    }
+
+    if ("IntersectionObserver" in window) {
+      var vahti = new IntersectionObserver(function (havainnot) {
+        havainnot.forEach(function (h) {
+          if (h.isIntersecting) { paastaKayntiin(); vahti.disconnect(); }
+        });
+      }, { threshold: 0.45 });
+      vahti.observe(kehys);
+    } else {
+      paastaKayntiin();
+    }
 
     /* Piirtosilmukka pyörii heti. Se odottaa itse readyState-tilaa, joten
        tyhjää ruutua ei piirry — varakuva näkyy siihen asti. */
