@@ -80,4 +80,16 @@
     <priority>0.5</priority>
   </url>
 
+  <url>
+    <loc>https://will-e.app/poista-tili.html</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://will-e.app/poista-tili.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://will-e.app/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://will-e.app/poista-tili.html"/>
+  </url>
+  <url>
+    <loc>https://will-e.app/delete-account.html</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://will-e.app/poista-tili.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://will-e.app/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://will-e.app/poista-tili.html"/>
+  </url>
 </urlset>

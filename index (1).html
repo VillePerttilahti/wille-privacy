@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+/* Kieliohjaus. Ajetaan <head>:ssä ennen renderöintiä, jotta suomenkielinen
+   sivu ei välähdä englanninkieliselle kävijälle.
+
+   Järjestys on tarkoituksellinen — käyttäjän oma valinta voittaa aina:
+     1. ?lang= osoitteessa  -> ei ohjata (testaus, jaettavat linkit)
+     2. aiempi FI/EN-valinta -> noudatetaan sitä
+     3. ei valintaa          -> katsotaan selaimen kieli
+   Tämä skripti on vain suomenkielisellä juurisivulla. /en/ ei ohjaa
+   koskaan mihinkään, joten silmukkaa ei voi syntyä. */
+(function () {
+  try {
+    if (location.search.indexOf("lang=") !== -1) return;
+    var valinta = null;
+    try { valinta = localStorage.getItem("wille-kieli"); } catch (e) {}
+    if (valinta === "fi") return;
+    if (valinta === "en") { location.replace("/en/"); return; }
+    var kieli = (navigator.language || "").toLowerCase();
+    if (kieli.indexOf("fi") !== 0) location.replace("/en/");
+  } catch (e) {}
+})();
+</script>
+
+
+<title>Will·e – tekoälyopettaja peruskoululaisille</title>
+<meta name="description" content="Will·e tekee koealueesta harjoituskysymyksiä ja kaverihaasteita. Kuvaa, pelaa, haasta kaveri. Peruskoulun 1.–9. luokille. Ensimmäinen viikko ilmaiseksi.">
+<link rel="canonical" href="https://will-e.app/">
+<link rel="alternate" hreflang="fi" href="https://will-e.app/">
+<link rel="alternate" hreflang="en" href="https://will-e.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://will-e.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Will·e">
+<meta property="og:locale" content="fi_FI">
+<meta property="og:url" content="https://will-e.app/">
+<meta property="og:title" content="Will·e – tekoälyopettaja peruskoululaisille">
+<meta property="og:description" content="Will·e muuttaa opiskelun peliksi. Harjoituskysymykset, kaverihaasteet ja oma opettaja ympäri vuorokauden. Ensimmäinen viikko ilmaiseksi.">
+<meta property="og:image" content="https://will-e.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0620">
+
+<link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=30">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Will\u00b7e",
+  "url": "https://will-e.app/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "iOS",
+  "inLanguage": ["fi", "en", "sv"],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Ville Perttilahti"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "12.99",
+    "priceCurrency": "EUR",
+    "description": "Will\u00b7e Pro, kuukausitilaus. Ensimm\u00e4inen viikko ilmaiseksi."
+  }
+}
+</script>
+</head>
+
+<body>
+<div class="starfield" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ====================== YLÄPALKKI ====================== -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Will·e – etusivu">
+      <span class="logo"><span class="word">Will</span><span class="dot">·</span><span class="word">e</span></span>
+    </a>
+
+    <span class="header-spacer"></span>
+
+    <nav class="lang" aria-label="Kieli">
+      <a href="/" aria-current="page" hreflang="fi">FI</a>
+      <a href="/en/" hreflang="en">EN</a>
+    </nav>
+
+    <a class="btn btn-small is-pending" href="#" role="button" aria-disabled="true"
+       data-appstore data-live="App Store">
+      <span class="btn-label">App Store</span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ====================== HERO ====================== -->
+  <section class="hero">
+    <div class="wrap">
+
+      <h1 class="reveal">Opi jopa 2x nopeammin<em>Johtavan tekoälyopettajan kanssa</em></h1>
+
+      <p class="lead reveal">
+        Will·e muuttaa pelaamisen opiskeluksi ja opiskelun hauskaksi pelaamiseksi.
+      </p>
+
+      <div class="store-row reveal">
+        <a class="btn is-pending" href="#" role="button" aria-disabled="true"
+           data-appstore data-live="Lataa App Storesta">
+          <span class="btn-label">Tulossa syksyllä 2026</span>
+        </a>
+      </div>
+
+      <div class="hero-figure hero-figure--anim glow-wrap reveal">
+        <canvas class="hero-canvas" width="912" height="1808" aria-hidden="true"></canvas>
+        <img class="hero-fallback" src="assets/hero/hero-poster.webp"
+             width="912" height="1808" alt="Will·e-sovelluksen etusivu iPhonessa">
+        <video class="hero-video" autoplay muted playsinline preload="auto"
+               aria-hidden="true" tabindex="-1">
+          <source src="assets/hero/hero.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FAKTANAUHA ====================== -->
+  <div class="factbar">
+    <div class="wrap">
+      <span><b>7 vuorokautta</b> ilmaiseksi</span>
+      <span><b>Ei</b> mainoksia</span>
+      <span>Ikäraja <b>4+</b></span>
+      <span><b>Aina</b> apunasi</span>
+    </div>
+  </div>
+
+  <!-- ====================== OMINAISUUDET ====================== -->
+  <!-- Pysäkkiviiva kulkee lohkojen välissä: sivu on matka, kuten apin
+       avaruuskarttakin. Piilotetaan kapealla näytöllä. -->
+  <section class="features wrap">
+
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Muuta läksyt ja kokeet<em>hetkessä peliksi</em></h2>
+        <p>
+          Ota kuvia tai tuo PDF- tai Word-tiedosto. Will·e lukee sisällön ja tekee siitä harjoituskysymyksiä hetkessä.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/camera.webp" width="645" height="1398"
+             alt="Koealueen kuvaaminen sovelluksessa" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Totta vai tarua,<em>opi kortti kerrallaan</em></h2>
+        <p>
+          Nopea peli, joka ei tunnu läksyiltä.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/swipe.webp" width="645" height="1398"
+             alt="Totta vai tarua -pelinäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Jokainen väärä vastaus<em>opettaa</em></h2>
+        <p>
+          Will·e näyttää heti oikean vastauksen ja selittää sen. Jos valitsit
+          väärin, se kertoo lisäksi miksi juuri se vaihtoehto ei ollut oikea.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/multi.webp" width="645" height="1398"
+             alt="Monivalintapeli selityksineen" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Ruutuaika ansaitaan<em>oppimalla</em></h2>
+        <p>
+          Will·e pitää valitut sovellukset kiinni, kunnes harjoittelu on tehty. Vanhempi valitsee sovellukset, lapsi avaa ne itse opiskelemalla.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/applock.webp" width="645" height="1398"
+             alt="App Lock -näkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Tarvitsetko tukea oppimiseen?<em>Will·e auttaa chatissa ympäri vuorokauden</em></h2>
+        <p>
+          Sinulla on käytössäsi oma opettaja aina kun tarvitset juttukaveria tai apua läksyissä.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/chat.webp" width="645" height="1398"
+             alt="Will·e-chat sovelluksessa" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Seuraa omaa<em>oppimista</em></h2>
+        <p>
+          Historia näyttää päivä- ja viikkotasolla, mitä on harjoiteltu ja miten meni. Vanhempi saa halutessaan sähköpostiinsa yhteenvedon: mikä sujuu vahvasti ja mitkä kysymykset kaipaavat vielä kertausta.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/history.webp" width="645" height="1398"
+             alt="Opiskeluhistoria ja kalenterinäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+    <article class="feature reveal">
+      <span class="stop" aria-hidden="true"></span>
+      <div class="feature-text">
+        <span class="rule" aria-hidden="true"></span>
+        <h2>Matkaa avaruudessa<em>ja opi planeetoista</em></h2>
+        <p>
+          Jokainen harjoituskerta vie eteenpäin. Kolikot, arvoasteikko ja voittoputki tekevät kertaamisesta jotain, mitä haluat jatkaa huomennakin.
+        </p>
+      </div>
+      <div class="feature-shot glow-wrap">
+        <span class="shot">
+          <img src="assets/shots/fi/space.webp" width="645" height="1398"
+             alt="Avaruusmatkan karttanäkymä" loading="lazy">
+        </span>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ====================== VANHEMMILLE ====================== -->
+  <section class="parents">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Lapsi saa oman opettajan.<em>Sinä tiedät että se on turvallinen.</em></h2>
+        <p>Will·e on turvallinen ja suunniteltu alusta lähtien peruskouluikäisille, ja se näkyy jokaisessa ratkaisussa.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <h3>Ei mainoksia</h3>
+          <p>Sovelluksessa ei ole mainoksia eikä ulkopuolisia seurantatyökaluja.
+             Tietoja ei myydä eteenpäin.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Vanhemman vahvistus</h3>
+          <p>Kaverit ja Will·e keskustelu aukeavat vasta kun vanhempi on antanut luvan. Yksin voit kuitenkin opiskella heti.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Kuvat eivät jää talteen</h3>
+          <p>Koealueen kuvia ei tallenneta palvelimelle, ja keskusteluhistoria pysyy vain lapsen laitteessa.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Sääntöjen mukaan</h3>
+          <p>GDPR ja COPPA on huomioitu alusta asti. App Storen ikäraja on 4+.</p>
+        </div>
+      </div>
+
+      <p class="fineprint reveal">
+        Tekoäly voi tehdä virheitä — Will·e on harjoittelun apuväline, ja tärkeät tiedot kannattaa tarkistaa opettajalta. App Lock hyödyntää iOS:n ruutuaikarajoituksia,
+        eikä sitä ole tarkoitettu ainoaksi lapsilukoksi.
+        Lue <a href="/tietosuoja.html">tietosuojaseloste</a> ja
+        <a href="/kayttoehdot.html">käyttöehdot</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== TUTKIMUS ====================== -->
+  <section class="research" id="tutkimus">
+    <div class="wrap">
+      <div class="research-card reveal">
+        <p class="block-label">Tutkimus taustalla</p>
+        <h2>Tekoälyopettajan kanssa opittiin yli kaksi kertaa enemmän</h2>
+        <p>
+          Harvardin yliopistossa tehdyssä satunnaistetussa vertailukokeessa
+          opiskelijat oppivat tekoälyopettajan kanssa yli kaksi kertaa enemmän
+          ja lyhyemmässä ajassa kuin luokkahuoneen aktiivisessa opetuksessa.
+          He kokivat myös olevansa motivoituneempia.
+        </p>
+        <p>
+          Koe tehtiin 194 yliopisto-opiskelijalle fysiikan kurssilla, eikä siinä
+          tutkittu Will·eä. Will·e on rakennettu samalle periaatteelle: tekoäly,
+          joka on suunniteltu opettamaan eikä vain vastaamaan.
+        </p>
+        <p class="citation">
+          Kestin, Miller, Klales, Milbourne &amp; Ponti (2025).
+          <a href="https://doi.org/10.1038/s41598-025-97652-6" target="_blank" rel="noopener">AI
+          tutoring outperforms in-class active learning</a>. Scientific Reports 15, 17458.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== ALATUNNISTE ====================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="logo"><span class="word">Will</span><span class="dot">·</span><span class="word">e</span></span>
+
+    <nav class="footer-links" aria-label="Alatunniste">
+      <a href="mailto:tuki@will-e.app">tuki@will-e.app</a>
+      <a href="/tietosuoja.html">Tietosuoja</a>
+      <a href="/kayttoehdot.html">Käyttöehdot</a>
+      <a href="/en/" hreflang="en">In English</a>
+    </nav>
+
+    <div class="footer-legal">
+      <span>© <span data-year>2026</span> Ville Perttilahti</span>
+      <span>Tehty Suomessa 🧡</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=30"></script>
+</body>
+</html>
