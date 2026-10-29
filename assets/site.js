@@ -197,12 +197,12 @@ var APP_STORE_URL = "https://apps.apple.com/app/id6776587160";
   })();
 
   /* --- 4. Kielivalinnan muistaminen -------------------------------------- */
-  /* Kun kävijä klikkaa FI tai EN, valinta talletetaan ja juurisivun
+  /* Kun kävijä vaihtaa kieltä (alatunnisteen In English / Suomeksi), valinta talletetaan ja juurisivun
      automaattinen kieliohjaus noudattaa sitä jatkossa. Kirjoitus on
      synkroninen, joten se ehtii tallentua ennen siirtymää. */
 
   Array.prototype.forEach.call(
-    document.querySelectorAll(".lang a[hreflang]"),
+    document.querySelectorAll(".lang a[hreflang], .footer-links a[hreflang]"),
     function (a) {
       a.addEventListener("click", function () {
         try { localStorage.setItem("wille-kieli", a.getAttribute("hreflang")); }

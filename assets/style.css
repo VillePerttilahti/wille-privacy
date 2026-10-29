@@ -960,3 +960,51 @@ p { margin: 0; }
 }
 
 .hero-canvas { position: relative; z-index: 1; }
+
+
+/* --- 23. Kauppamerkit herossa ------------------------------------------- */
+/* Viralliset App Store- ja Google Play -merkit. Merkkejä ei saa muokata,
+   joten kultahehku tehdään drop-shadow-suotimella merkin ympärille —
+   se seuraa merkin pyöristettyjä kulmia, ei suorakulmiota. Molemmat
+   samankorkuisia, kuten kauppojen ohjeet edellyttävät. */
+.store-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+.store-badge {
+  display: block;
+  border-radius: 10px;
+  transition: transform .2s ease, filter .2s ease;
+  filter: drop-shadow(0 0 14px rgba(255, 190, 35, .38))
+          drop-shadow(0 0 32px rgba(255, 165, 20, .22));
+}
+.store-badge img {
+  display: block;
+  height: clamp(40px, 11.4vw, 56px);
+  width: auto;
+}
+.store-badge:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 18px rgba(255, 190, 35, .55))
+          drop-shadow(0 0 40px rgba(255, 165, 20, .32));
+}
+.store-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--text-2);
+}
+.store-tagline::before,
+.store-tagline::after {
+  content: "";
+  width: 44px;
+  height: 1px;
+  background: currentColor;
+  opacity: .45;
+}
