@@ -977,9 +977,11 @@ p { margin: 0; }
 .store-badge {
   display: block;
   border-radius: 10px;
-  transition: transform .2s ease, filter .2s ease;
-  filter: drop-shadow(0 0 14px rgba(255, 190, 35, .38))
-          drop-shadow(0 0 32px rgba(255, 165, 20, .22));
+  transition: transform .2s ease, box-shadow .2s ease;
+  /* EI filter: drop-shadow. Safari piirsi suodinkerroksen tummana
+     suorakulmiona merkkien taakse. box-shadow ei luo omaa kerrosta. */
+  box-shadow: 0 0 16px rgba(255, 190, 35, .34),
+              0 0 36px rgba(255, 165, 20, .18);
 }
 .store-badge img {
   display: block;
@@ -988,8 +990,8 @@ p { margin: 0; }
 }
 .store-badge:hover {
   transform: translateY(-2px);
-  filter: drop-shadow(0 0 18px rgba(255, 190, 35, .55))
-          drop-shadow(0 0 40px rgba(255, 165, 20, .32));
+  box-shadow: 0 0 20px rgba(255, 190, 35, .5),
+              0 0 44px rgba(255, 165, 20, .28);
 }
 .store-tagline {
   display: flex;
@@ -1007,4 +1009,36 @@ p { margin: 0; }
   height: 1px;
   background: currentColor;
   opacity: .45;
+}
+
+
+/* --- 24. Kirjakortti: oppikirjan sivu -> nuoli -> peli ----------------- */
+/* Sivu ja nuoli sijoitetaan puhelimen vasemman reunan mukaan, ei
+   palstan: puhelin on keskellä, ja sivu saa peittää siitä vain kapean
+   kaistaleen, ettei pelinäkymä jää sen alle. */
+.feature-shot--book {
+  position: relative;
+  --pw: min(292px, 62vw);        /* sama kuin .shot */
+  --bw: min(170px, 30vw);        /* sivun leveys */
+}
+.book-page {
+  position: absolute;
+  z-index: 2;
+  left: max(-4px, calc(50% - var(--pw) / 2 - var(--bw) + 34px));
+  bottom: 3%;
+  width: var(--bw);
+  height: auto;
+  border-radius: 4px;
+  transform: rotate(-8deg);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, .6),
+              0 0 0 1px rgba(255, 255, 255, .12),
+              -6px 6px 0 -1px #d9cfbf;   /* sivun paksuus */
+}
+.book-arrow {
+  position: absolute;
+  z-index: 2;
+  left: max(calc(var(--bw) * .45), calc(50% - var(--pw) / 2 - var(--bw) * .45));
+  bottom: calc(3% + var(--bw) * 1.5 + 6px);
+  width: min(70px, 15vw);
+  height: auto;
 }
