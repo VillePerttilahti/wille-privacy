@@ -1008,3 +1008,10 @@ p { margin: 0; }
   background: currentColor;
   opacity: .45;
 }
+
+/* Heron toinen ingressirivi: aineluettelo, hieman pienempi ja himmeämpi. */
+.hero .lead { max-width: 56ch; }
+/* Negatiivinen ylämarginaali: ingressin 34 px:n alamarginaali muuten
+   erottaisi aineluettelon liian kauas siitä tekstistä, jota se täydentää. */
+.hero .lead-sub { margin-top: -20px; font-size: .9em; color: var(--text-2); opacity: .8; }
+.feature-text p + p { margin-top: 12px; }
