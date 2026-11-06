@@ -1021,11 +1021,17 @@ p { margin: 0; }
   --pw: min(292px, 62vw);        /* sama kuin .shot */
   --bw: min(170px, 30vw);        /* sivun leveys */
 }
+.book-stage {                    /* puhelimen kokoinen laatikko */
+  position: relative;
+  width: var(--pw);
+  margin-inline: auto;
+  translate: calc(var(--bw) * .36) 0;  /* tilaa sivulle vasemmalla */
+}
 .book-page {
   position: absolute;
   z-index: 2;
-  left: max(-4px, calc(50% - var(--pw) / 2 - var(--bw) + 34px));
-  bottom: 3%;
+  left: calc(var(--bw) * -.78);   /* peittää puhelimesta vain reunan */
+  bottom: 5%;
   width: var(--bw);
   height: auto;
   border-radius: 4px;
@@ -1034,11 +1040,11 @@ p { margin: 0; }
               0 0 0 1px rgba(255, 255, 255, .12),
               -6px 6px 0 -1px #d9cfbf;   /* sivun paksuus */
 }
-.book-arrow {
+.book-arrow {                     /* sivun yläpuolella, puhelimen vasemmalla */
   position: absolute;
   z-index: 2;
-  left: max(calc(var(--bw) * .45), calc(50% - var(--pw) / 2 - var(--bw) * .45));
-  bottom: calc(3% + var(--bw) * 1.5 + 6px);
-  width: min(70px, 15vw);
+  left: calc(var(--bw) * -.5);
+  bottom: calc(5% + var(--bw) * 1.5 + 10px);
+  width: min(66px, 14vw);
   height: auto;
 }
